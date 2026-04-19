@@ -2,22 +2,31 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Halaman Home
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout.index'); 
 });
 
-// Halaman Profil
-Route::get('/profil', function () {
-    return view('profil');
+Route::get('/detail', function () {
+    return view('layout.event_detail'); 
 });
 
-// Halaman Katalog
-Route::get('/katalog', function () {
-    return view('katalog');
+Route::get('/checkout', function () {
+    return view('layout.checkout');
+});
+Route::get('/ticket', function () {
+    return view('layout.ticket'); 
 });
 
-// Halaman Bantuan
-Route::get('/bantuan', function () {
-    return view('bantuan');
+
+Route::get('/admin', function () {
+    return view('admin.dashboard'); 
+});
+
+Route::get('/adminkelola', function () {
+    return view('admin.event'); 
+});
+
+Route::get('/adminlaporan', function () {
+    return view('admin.transaction'); 
 });

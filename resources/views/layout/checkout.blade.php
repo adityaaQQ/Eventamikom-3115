@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - AmikomEventHub</title>
+    <title>Checkout - {{ $event->title ?? 'Detail Event' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -15,146 +14,91 @@
     </style>
 </head>
 
-<body class="bg-indigo-50/30 text-slate-900">
+<body class="bg-slate-50 min-h-screen py-10 px-4">
 
-    <main class="max-w-3xl mx-auto px-6 py-20">
-        <div class="mb-12">
-            <a href="{{ url('/') }}" class="text-indigo-600 font-bold flex items-center gap-2 mb-6">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-                Kembali ke Event
-            </a>
-            <h1 class="text-4xl font-extrabold">Checkout</h1>
-            <p class="text-slate-500 mt-2">Lengkapi data Anda untuk mendapatkan tiket.</p>
-        </div>
+    <div class="max-w-2xl mx-auto space-y-6">
 
-        <div class="grid grid-cols-1 gap-8">
-            <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-                <h3 class="text-xl font-bold mb-6 border-b pb-4">Pesanan Anda</h3>
-                <div class="flex gap-6 items-start">
-                    <img src="{{ asset('assets/concert.png') }}" alt="Event" class="w-24 h-24 rounded-2xl object-cover">
-                    <div>
-                        <h4 class="font-extrabold text-lg">Jazz Night 2024: A Celebration</h4>
-                        <p class="text-slate-500">16 Nov 2024 • The Blue Note Lounge</p>
-                        <p class="text-indigo-600 font-bold mt-2">1 x Rp 150.000</p>
-                    </div>
-                </div>
-                <div class="mt-8 pt-6 border-t space-y-3">
-                    <div class="flex justify-between text-slate-500">
-                        <span>Harga Tiket</span>
-                        <span>Rp 150.000</span>
-                    </div>
-                    <div class="flex justify-between text-slate-500">
-                        <span>Biaya Layanan</span>
-                        <span>Rp 5.000</span>
-                    </div>
-                    <div class="flex justify-between text-2xl font-black mt-4 pt-4 border-t">
-                        <span>Total Bayar</span>
-                        <span class="text-indigo-600">Rp 155.000</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-                <h3 class="text-xl font-bold mb-6 italic text-indigo-600 underline underline-offset-8">📦 Data Pemesan</h3>
-                <form class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Nama Lengkap</label>
-                        <input type="text" placeholder="Masukkan nama sesuai identitas"
-                            class="w-full px-5 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 outline-none transition font-medium"
-                            required>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Email Aktif</label>
-                            <input type="email" placeholder="contoh@gmail.com"
-                                class="w-full px-5 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 outline-none transition font-medium"
-                                required>
-                            <p class="text-[10px] text-slate-400 mt-2 font-bold uppercase tracking-tighter">*E-Ticket akan dikirim ke email ini</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">No. WhatsApp</label>
-                            <input type="tel" placeholder="08xxxxxxx"
-                                class="w-full px-5 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 outline-none transition font-medium"
-                                required>
-                        </div>
-                    </div>
-
-                    <button type="button" onclick="showMidtrans()"
-                        class="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all">
-                        Bayar Sekarang
-                    </button>
-                </form>
-            </div>
-        </div>
-    </main>
-
-    <div id="midtrans-overlay"
-        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-6">
-        <div class="bg-white w-full max-w-sm rounded-[2rem] overflow-hidden shadow-2xl animate-bounce-in relative">
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
+            <h2 class="text-xl font-bold text-slate-800 mb-6">Pesanan Anda</h2>
             
-            <div class="bg-slate-50 p-6 flex justify-between items-center border-b">
-                <div class="flex items-center gap-1">
-                    <span class="font-black text-indigo-600 tracking-tighter text-xl">midtrans</span>
-                    <span class="text-[8px] bg-indigo-600 text-white px-1.5 py-0.5 rounded font-bold">PAYMENT</span>
+            <div class="flex items-start gap-4 pb-6 border-b border-slate-100">
+                <div class="w-20 h-20 bg-slate-100 rounded-2xl overflow-hidden flex-shrink-0 border border-slate-100">
+                    <img src="{{ $event->image ? asset('storage/' . $event->image) : 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=200&auto=format&fit=crop' }}" 
+                         class="w-full h-full object-cover" alt="Event Thumbnail">
                 </div>
-                <button onclick="hideMidtrans()" class="text-slate-400 hover:text-slate-600 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+                <div>
+                    <h3 class="font-black text-lg text-slate-900 leading-tight mb-1">
+                        {{ $event->title ?? 'Nama Event' }}
+                    </h3>
+                    <p class="text-sm text-slate-500 font-medium">
+                        {{ isset($event->date) ? \Carbon\Carbon::parse($event->date)->translatedFormat('d M Y') : 'Tanggal Event' }} • {{ $event->location ?? 'Amikom Yogyakarta' }}
+                    </p>
+                    <p class="text-sm text-indigo-600 font-bold mt-2">
+                        1x Rp {{ number_format($event->price ?? 0, 0, ',', '.') }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-6 space-y-4 text-sm font-medium text-slate-500">
+                <div class="flex justify-between">
+                    <span>Harga Tiket</span>
+                    <span class="text-slate-800">Rp {{ number_format($event->price ?? 0, 0, ',', '.') }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Biaya Layanan</span>
+                    <span class="text-slate-800">Rp 5.000</span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <span class="text-base font-bold text-slate-800">Total Bayar</span>
+                    <span class="text-2xl font-black text-indigo-600">
+                        Rp {{ number_format(($event->price ?? 0) + 5000, 0, ',', '.') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <form action="/checkout/proses" method="POST" class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
+            @csrf
+            
+            <input type="hidden" name="event_id" value="{{ $event->id }}">
+
+            <div class="flex items-center gap-2 mb-6">
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <h2 class="text-xl font-bold text-slate-800">Data Pemesan</h2>
+            </div>
+
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap</label>
+                    <input type="text" name="nama" required placeholder="Masukkan nama sesuai kartu identitas"
+                        class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-indigo-500 focus:bg-white font-medium text-slate-800 transition-all placeholder:text-slate-400">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Alamat Email</label>
+                    <input type="email" name="email" required placeholder="contoh@email.com"
+                        class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-indigo-500 focus:bg-white font-medium text-slate-800 transition-all placeholder:text-slate-400">
+                    <p class="text-xs text-slate-400 font-medium mt-1.5 ml-1">E-Ticket resmi Anda akan dikirimkan ke alamat email ini.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Nomor Telepon / WhatsApp</label>
+                    <input type="text" name="telepon" required placeholder="Contoh: 08123456789"
+                        class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-indigo-500 focus:bg-white font-medium text-slate-800 transition-all placeholder:text-slate-400">
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-100 transition-all text-center text-base tracking-wide">
+                    Beli Sekarang
                 </button>
             </div>
+        </form>
 
-            <div class="p-8 text-center">
-                <p class="text-slate-500 font-medium">Total Tagihan</p>
-                <h2 class="text-3xl font-black text-indigo-700 my-2">Rp 155.000</h2>
-                <p class="text-xs text-slate-400">Order ID #TRX-99210</p>
-
-                <div class="mt-8 space-y-4">
-                    <button onclick="window.location.href='{{ url('/ticket') }}'"
-                        class="w-full py-4 border-2 border-indigo-100 rounded-2xl flex justify-between items-center px-6 hover:border-indigo-600 transition group">
-                        <span class="font-bold group-hover:text-indigo-600">GoPay / QRIS</span>
-                        <span class="text-indigo-400">→</span>
-                    </button>
-                    <button class="w-full py-4 border-2 border-indigo-100 rounded-2xl flex justify-between items-center px-6 opacity-50 cursor-not-allowed">
-                        <span class="font-bold">Virtual Account (BNI, BRI)</span>
-                        <span class="text-indigo-400">→</span>
-                    </button>
-                </div>
-
-                <div class="mt-12 flex items-center justify-center gap-2 text-xs text-slate-400 font-bold uppercase tracking-widest">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    Secure Checkout by Midtrans
-                </div>
-            </div>
-        </div>
     </div>
 
-    <script>
-        function showMidtrans() {
-            const overlay = document.getElementById('midtrans-overlay');
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
-        }
-        function hideMidtrans() {
-            const overlay = document.getElementById('midtrans-overlay');
-            overlay.classList.add('hidden');
-            overlay.classList.remove('flex');
-        }
-    </script>
-
-    <style>
-        @keyframes bounce-in {
-            0% { transform: scale(0.9); opacity: 0; }
-            70% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-        .animate-bounce-in {
-            animation: bounce-in 0.4s ease-out forwards;
-        }
-    </style>
 </body>
+
 </html>

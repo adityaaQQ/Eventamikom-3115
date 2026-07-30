@@ -24,7 +24,7 @@
 
         <!-- TOMBOL LOGIN WITH GOOGLE -->
         <div class="mb-6">
-            <a href="{{ route('auth.google') }}" class="w-full py-3.5 px-4 bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-3 transition shadow-sm">
+            <a href="{{ url('/auth/google') }}" class="w-full py-3.5 px-4 bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-3 transition shadow-sm">
                 <svg class="w-5 h-5" viewBox="0 0 24 24">
                     <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/>
                     <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
@@ -41,7 +41,8 @@
             <div class="flex-grow border-t border-slate-200"></div>
         </div>
 
-        <form action="{{ route('admin.login.post') }}" method="POST" class="space-y-6">
+        <!-- UBAH ACTION MENGGUNAKAN URL RELATIF -->
+        <form action="{{ url('/admin/login') }}" method="POST" class="space-y-6">
             @csrf
             <div>
                 <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Email</label>
